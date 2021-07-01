@@ -1,0 +1,30 @@
+﻿<Window x:Class="HomeInvestor.Dlg.dlgEtf"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	Title="ETF" Height="300" Width="600"
+	WindowStartupLocation="CenterScreen"
+	FontSize="16"
+	SnapsToDevicePixels="True"
+>
+	<Window.Resources>
+		<Style TargetType="{x:Type TextBlock}">
+			<Setter Property="Width" Value="200"/>
+			<Setter Property="TextAlignment" Value="Right"/>
+			<Setter Property="Margin" Value="0, 0, 5, 0"/>
+		</Style>
+		<Style TargetType="{x:Type DockPanel}">
+			<Setter Property="Margin" Value="3"/>
+		</Style>
+	</Window.Resources>
+
+	<StackPanel Orientation="Vertical">
+		<DockPanel LastChildFill="True"><TextBlock Text="Полное название:" DockPanel.Dock="Left"/><TextBox Text="{Binding FullName}"/></DockPanel>
+		<DockPanel LastChildFill="True"><TextBlock Text="Тикер:"/><TextBox Text="{Binding Ticker}"/></DockPanel>
+		<DockPanel LastChildFill="True"><TextBlock Text="Валюта цены:"/><ComboBox ItemsSource="{Binding Main.Currs}" DisplayMemberPath="Name" SelectedValuePath="Id" 
+			SelectedValue="{Binding CurrPriceId}"/></DockPanel>
+		<DockPanel LastChildFill="True"><TextBlock Text="Тип ETF:"/><ComboBox ItemsSource="{Binding Main.EtfTypes}" DisplayMemberPath="Name" SelectedValuePath="Id" 
+			SelectedValue="{Binding EtfTypeId}"/></DockPanel>
+		
+		<Button Content="Ok" Click="Button_Click" Width="100"/>
+	</StackPanel>
+</Window>

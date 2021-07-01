@@ -1,0 +1,311 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProjectGuid>{BE011992-5634-44A5-8FD2-974BB34BBBB8}</ProjectGuid>
+    <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>HomeInvestor</RootNamespace>
+    <AssemblyName>HomeInvestor</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>Full</DebugType>
+    <Optimize>False</Optimize>
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
+    <Optimize>True</Optimize>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ICSharpCode.AvalonEdit">
+      <HintPath>..\..\SharpDevelop\bin\ICSharpCode.AvalonEdit.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts">
+      <HintPath>..\packages\LiveCharts.0.9.7\lib\net40\LiveCharts.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts.Wpf">
+      <HintPath>..\packages\LiveCharts.Wpf.0.9.7\lib\net40\LiveCharts.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationCore">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.SQLite">
+      <HintPath>..\packages\System.Data.SQLite.Core.1.0.109.2\lib\net40\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Actors\ActorBase.cs" />
+    <Compile Include="Actors\ActorSystem.cs" />
+    <Compile Include="Actors\DBLoader.cs" />
+    <Compile Include="Actors\DBProgress.cs" />
+    <Compile Include="Actors\MainActor.cs" />
+    <Compile Include="Actors\MainWindowActor.cs" />
+    <Compile Include="Actors\Messages.cs" />
+    <Compile Include="Actors\names.cs" />
+    <Compile Include="Actors\OblDictActor.cs" />
+    <Compile Include="Actors\PortfolioActor.cs" />
+    <Compile Include="Actors\PositionActor.cs" />
+    <Compile Include="Actors\StatisticaActor.cs" />
+    <Compile Include="App.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\MyDGComboBox.xaml.cs">
+      <DependentUpon>MyDGComboBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\RectDiagramm.xaml.cs">
+      <DependentUpon>RectDiagramm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\TabPortfolio.xaml.cs">
+      <DependentUpon>TabPortfolio.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CondParser\Cond.cs" />
+    <Compile Include="CondParser\Parser.cs" />
+    <Compile Include="Converters\Bool2Visibility.cs" />
+    <Compile Include="Converters\CheckHistory.cs" />
+    <Compile Include="Converters\ColorToSolidBrushConverter.cs" />
+    <Compile Include="Converters\Decimal2Str.cs" />
+    <Compile Include="Converters\DoubleDivideIntConverter.cs" />
+    <Compile Include="Converters\LengthPercentageConverter.cs" />
+    <Compile Include="Converters\NCDConverter.cs" />
+    <Compile Include="Converters\OblAmortConverter.cs" />
+    <Compile Include="Converters\OblCupConverter.cs" />
+    <Compile Include="Converters\PercentToGridWidth.cs" />
+    <Compile Include="Converters\Plan2Color.cs" />
+    <Compile Include="Converters\Plan2String.cs" />
+    <Compile Include="Converters\Str2DT.cs" />
+    <Compile Include="Converters\True2RedConverter.cs" />
+    <Compile Include="Dlg\Cupons.xaml.cs">
+      <DependentUpon>Cupons.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Dlg\dlgBond.xaml.cs">
+      <DependentUpon>dlgBond.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Dlg\dlgEtf.xaml.cs">
+      <DependentUpon>dlgEtf.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Dlg\dlgHistory.xaml.cs">
+      <DependentUpon>dlgHistory.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Dlg\dlgNotes.xaml.cs">
+      <DependentUpon>dlgNotes.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Dlg\dlgObl.xaml.cs">
+      <DependentUpon>dlgObl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dlg\dlgPortfolioSettings.xaml.cs">
+      <DependentUpon>dlgPortfolioSettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dlg\dlgSelectActive.xaml.cs">
+      <DependentUpon>dlgSelectActive.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Dlg\dlgSelectBond.xaml.cs">
+      <DependentUpon>dlgSelectBond.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Dlg\dlgSelectEtf.xaml.cs">
+      <DependentUpon>dlgSelectEtf.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Dlg\dlgSelectStock.xaml.cs">
+      <DependentUpon>dlgSelectStock.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Dlg\dlgStock.xaml.cs">
+      <DependentUpon>dlgStock.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Dlg\InputBox.xaml.cs">
+      <DependentUpon>InputBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Exts\ColorExts.cs" />
+    <Compile Include="Exts\DateTimeExts.cs" />
+    <Compile Include="Helpers\Colors.cs" />
+    <Compile Include="Pages\BasePage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Pages\BondPage.xaml.cs">
+      <DependentUpon>BondPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Pages\CommonPortfolioPage.xaml.cs">
+      <DependentUpon>CommonPortfolioPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Pages\CurrencyPage.xaml.cs">
+      <DependentUpon>CurrencyPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Pages\EtfPage.xaml.cs">
+      <DependentUpon>EtfPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Pages\HomePage.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>HomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PortfolioPage.xaml.cs">
+      <DependentUpon>PortfolioPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Pages\StockPage.xaml.cs">
+      <DependentUpon>StockPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Pages\VDOPage.xaml.cs">
+      <DependentUpon>VDOPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\WPFAssemblyInfo.cs" />
+    <Compile Include="SplashScreen.xaml.cs">
+      <DependentUpon>SplashScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UMD\DB.cs" />
+    <Compile Include="UMD\IDB.cs" />
+    <Compile Include="UMD\Logic\Description\IOutputDescription.cs" />
+    <Compile Include="UMD\Logic\Description\UMDClass.cs" />
+    <Compile Include="UMD\Logic\Description\UMDSlotDescription.cs" />
+    <Compile Include="UMD\Logic\UMDConnectorBase.cs" />
+    <Compile Include="UMD\Logic\UMDInput.cs" />
+    <Compile Include="UMD\Logic\UMDObject.cs" />
+    <Compile Include="UMD\Logic\UMDOutput.cs" />
+    <Compile Include="UMD\ModelBase.cs" />
+    <Compile Include="UMD\PetaPoco.cs" />
+    <Compile Include="UMD\SQLFactory.cs" />
+    <Compile Include="UMD\UMDComparers.cs" />
+    <Compile Include="UMD\UMDExceptions.cs" />
+    <Compile Include="UMD\UMDManager.cs" />
+    <Compile Include="UMD\UMDModels.cs" />
+    <Compile Include="UMD\UMDQuery.cs" />
+    <Compile Include="UMD\UMDViewModelBase.cs" />
+    <Compile Include="UMD\UMDViewModels.cs" />
+    <Compile Include="UMD\ViewModelBase.cs" />
+    <Compile Include="ViewModels\AmortViewModel.cs" />
+    <Compile Include="ViewModels\BondTypeViewModel.cs" />
+    <Compile Include="ViewModels\ConditionViewModel.cs" />
+    <Compile Include="ViewModels\CuponViewModel.cs" />
+    <Compile Include="ViewModels\CurrencyViewModel.cs" />
+    <Compile Include="ViewModels\DictOblViewModel.cs" />
+    <Compile Include="ViewModels\EtfTypeViewModel.cs" />
+    <Compile Include="ViewModels\EtfViewModel.cs" />
+    <Compile Include="ViewModels\FutureCuponViewModel.cs" />
+    <Compile Include="ViewModels\HistoryViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel_Conds.cs" />
+    <Compile Include="ViewModels\MainViewModel_Stat.cs" />
+    <Compile Include="ViewModels\BondViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel_VDO.cs" />
+    <Compile Include="ViewModels\OneDayViewModel.cs" />
+    <Compile Include="ViewModels\OtraslViewModel.cs" />
+    <Compile Include="ViewModels\PortfolioViewModel.cs" />
+    <Compile Include="ViewModels\PositionViewModel.cs" />
+    <Compile Include="ViewModels\RelayCommand.cs" />
+    <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\StockTypeViewModel.cs" />
+    <Compile Include="ViewModels\StockViewModel.cs" />
+    <Compile Include="ViewModels\Stubs.cs" />
+    <Compile Include="Window1.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>Window1.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Components\MyDGComboBox.xaml" />
+    <Page Include="Components\RectDiagramm.xaml" />
+    <Page Include="Components\TabPortfolio.xaml" />
+    <Page Include="Dlg\Cupons.xaml" />
+    <Page Include="Dlg\dlgBond.xaml" />
+    <Page Include="Dlg\dlgEtf.xaml" />
+    <Page Include="Dlg\dlgHistory.xaml" />
+    <Page Include="Dlg\dlgNotes.xaml" />
+    <Page Include="Dlg\dlgObl.xaml" />
+    <Page Include="Dlg\dlgPortfolioSettings.xaml" />
+    <Page Include="Dlg\dlgSelectActive.xaml" />
+    <Page Include="Dlg\dlgSelectBond.xaml" />
+    <Page Include="Dlg\dlgSelectEtf.xaml" />
+    <Page Include="Dlg\dlgSelectStock.xaml" />
+    <Page Include="Dlg\dlgStock.xaml" />
+    <Page Include="Dlg\InputBox.xaml" />
+    <Page Include="Pages\BondPage.xaml" />
+    <Page Include="Pages\CommonPortfolioPage.xaml" />
+    <Page Include="Pages\CurrencyPage.xaml" />
+    <Page Include="Pages\EtfPage.xaml" />
+    <Page Include="Pages\HomePage.xaml" />
+    <Page Include="Pages\PortfolioPage.xaml" />
+    <Page Include="Pages\StockPage.xaml" />
+    <Page Include="Pages\VDOPage.xaml" />
+    <Page Include="SplashScreen.xaml" />
+    <Page Include="Window1.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Actors" />
+    <Folder Include="Converters" />
+    <Folder Include="Helpers" />
+    <Folder Include="UMD" />
+    <Folder Include="UMD\Logic" />
+    <Folder Include="UMD\Logic\Description" />
+    <Folder Include="ViewModels" />
+    <Folder Include="Components" />
+    <Folder Include="Dlg" />
+    <Folder Include="Exts" />
+    <Folder Include="Pages" />
+    <Folder Include="CondParser" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\System.Data.SQLite.Core.1.0.109.2\build\net40\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.109.2\build\net40\System.Data.SQLite.Core.targets')" />
+</Project>

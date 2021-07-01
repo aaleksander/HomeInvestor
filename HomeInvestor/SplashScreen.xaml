@@ -1,0 +1,16 @@
+﻿<Window x:Class="HomeInvestor.SplashScreen"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	Title="Obligi" Height="300" Width="640"
+    WindowStyle="None"
+	Loaded="Window_Loaded"
+	WindowStartupLocation="CenterScreen">
+	<DockPanel LastChildFill="True">
+		<TextBlock DockPanel.Dock="Bottom" Text="загрузка данных..." Margin="5" x:Name="_text"/>
+		<ProgressBar DockPanel.Dock="Bottom" x:Name="_progress" Maximum="1" Height="16" Margin="5,0"/>
+		
+		<Grid>
+			<TextBlock Text="требуется художник для оформления заставки" Margin="20"/>
+		</Grid>
+	</DockPanel>
+</Window>

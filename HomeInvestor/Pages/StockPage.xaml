@@ -1,0 +1,92 @@
+﻿<local:BasePage x:Class="HomeInvestor.Pages.StockPage"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:local="clr-namespace:HomeInvestor.Pages"
+	xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+	xmlns:comp="clr-namespace:HomeInvestor.Components"
+>
+	<DockPanel LastChildFill="True">
+		<DockPanel LastChildFill="True" DockPanel.Dock="Top" Margin="5">
+			<Button Command="{Binding NavHomeCommand}" Content="Домой" DockPanel.Dock="Left" Margin="5" Padding="3"/>
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+				<TextBlock Text="Справочник акций" FontSize="24"/>
+			</StackPanel>
+		</DockPanel>
+		<TabControl>
+			<TabItem Header="Акции">
+				<DockPanel LastChildFill="True">
+					<StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+						<Button Content="+" Command="{Binding AddStockCommand}" Width="24" Margin="5"/>
+						<Button Content="-" Command="{Binding RemoveStockCommand}" CommandParameter="{Binding ElementName=gridStocks, Path=SelectedItem}" 
+						        Width="24" Margin="5"/>
+						<Button Content="edit" Command="{Binding EditStockCommand}" CommandParameter="{Binding ElementName=gridStocks, Path=SelectedItem}" 
+						        Margin="5" Padding="3"/>
+					</StackPanel>
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition />
+							<ColumnDefinition />
+						</Grid.ColumnDefinitions>
+
+						<DataGrid ItemsSource="{Binding Stocks}" AutoGenerateColumns="False" HeadersVisibility="Column"
+							SelectionMode="Single" SelectionUnit="FullRow" Name="gridStocks" Grid.Column="0">
+							<DataGrid.Columns>
+								<DataGridTextColumn Binding="{Binding FullName}" 			Header="Название" 	IsReadOnly="True" 	Width="200"/>
+								<DataGridTextColumn Binding="{Binding Ticker}"				Header="Тикер" 		IsReadOnly="True" 	Width="70"/>
+								<DataGridTextColumn Binding="{Binding Price, Mode=TwoWay}" 	Header="Цена" 							Width="150"/>
+								<DataGridTextColumn Binding="{Binding StockType.Name}" 		Header="Тип" 		IsReadOnly="True" 	Width="200"/>
+								<DataGridTextColumn Binding="{Binding Otrasl.Name}" 		Header="Тип" 		IsReadOnly="True" 	Width="200"/>
+								<DataGridTemplateColumn>
+									<DataGridTemplateColumn.CellTemplate>
+							    		<DataTemplate>
+							    			<TextBlock HorizontalAlignment="Center" Margin="5,0">
+			                                    <Hyperlink Command="{Binding NotesCommand}">
+			                                        <TextBlock Text="заметки..."/>
+			                                    </Hyperlink>
+							    			</TextBlock>
+										</DataTemplate>
+							    	</DataGridTemplateColumn.CellTemplate>
+								</DataGridTemplateColumn>
+							</DataGrid.Columns>
+						</DataGrid>
+
+						<GroupBox Header="Дивиденты" Grid.Column="2">
+
+						</GroupBox>
+					</Grid>
+				</DockPanel>
+			</TabItem>
+			<TabItem Header="Типы акций">
+				<DockPanel LastChildFill="True">
+					<StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+						<Button Content="+" Command="{Binding AddStockTypeCommand}" Width="24" Margin="5"/>
+						<Button Content="-" Command="{Binding RemoveStockTypeCommand}" CommandParameter="{Binding ElementName=gridStockTypes, Path=SelectedItem}" 
+						        Width="24" Margin="5"/>
+					</StackPanel>
+					<DataGrid ItemsSource="{Binding StockTypes}" AutoGenerateColumns="False" HeadersVisibility="Column"
+						SelectionMode="Single" SelectionUnit="FullRow" Name="gridStockTypes">
+						<DataGrid.Columns>
+							<DataGridTextColumn Binding="{Binding Name}" Header="Название" IsReadOnly="False" Width="200"/>
+						</DataGrid.Columns>
+					</DataGrid>
+				</DockPanel>
+			</TabItem>
+
+			<TabItem Header="Отрасли">
+				<DockPanel LastChildFill="True">
+					<StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+						<Button Content="+" Command="{Binding AddOtraslCommand}" Width="24" Margin="5"/>
+						<Button Content="-" Command="{Binding RemoveOtraslCommand}" CommandParameter="{Binding ElementName=gridOtrasls, Path=SelectedItem}" 
+						        Width="24" Margin="5"/>
+					</StackPanel>
+					<DataGrid ItemsSource="{Binding Otrasls}" AutoGenerateColumns="False" HeadersVisibility="Column"
+						SelectionMode="Single" SelectionUnit="FullRow" Name="gridOtrasls">
+						<DataGrid.Columns>
+							<DataGridTextColumn Binding="{Binding Name}" Header="Название" IsReadOnly="False" Width="200"/>
+						</DataGrid.Columns>
+					</DataGrid>
+				</DockPanel>
+			</TabItem>
+		</TabControl>
+	</DockPanel>
+</local:BasePage>

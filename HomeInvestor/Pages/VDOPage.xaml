@@ -1,0 +1,38 @@
+﻿<local:BasePage x:Class="HomeInvestor.Pages.VDOPage"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:HomeInvestor.Pages"
+    xmlns:conv="clr-namespace:HomeInvestor.Converters"
+	Title="VDOPage">
+	<local:BasePage.Resources>
+		<Style TargetType="Button">
+			<Setter Property="Padding" Value="3"/>
+			<Setter Property="Margin" Value="3"/>
+		</Style>
+		<conv:Str2DT x:Key="str2dt"/>
+		<conv:OblCupConverter x:Key="oblCupConv"/>
+		<conv:OblAmortConverter x:Key="oblAmortConv"/>
+	</local:BasePage.Resources>
+	<DockPanel LastChildFill="True">
+		<DockPanel LastChildFill="True" DockPanel.Dock="Top" Margin="5">
+			<Button Command="{Binding NavHomeCommand}" Content="Домой" DockPanel.Dock="Left" Margin="5" Padding="3"/>
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+				<TextBlock Text="Портфель ВДО" FontSize="24"/>
+			</StackPanel>
+		</DockPanel>
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition />
+				<RowDefinition Height="Auto"/>
+				<RowDefinition />
+			</Grid.RowDefinitions>
+			<GroupBox Header="Мой портфель ВДО">
+				<DataGrid ItemsSource="{Binding VDOPositions}" IsReadOnly="True"/>
+			</GroupBox>
+			<GridSplitter Grid.Row="1" Height="1" HorizontalAlignment="Stretch"/>
+			<GroupBox Header="Готовятся к резмещению" Grid.Row="2"> 
+			
+			</GroupBox>
+		</Grid>
+	</DockPanel>
+</local:BasePage>

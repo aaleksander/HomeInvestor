@@ -1,0 +1,34 @@
+﻿<Window x:Class="HomeInvestor.Dlg.dlgPortfolioSettings"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	Title="Настройки портфеля" Height="250" Width="400"
+	WindowStartupLocation="CenterScreen"
+	FontSize="16"
+>
+	<Window.Resources>
+		<Style TargetType="{x:Type TextBlock}">
+			<Setter Property="Width" Value="150"/>
+			<Setter Property="TextAlignment" Value="Right"/>
+			<Setter Property="Margin" Value="5,0"/>
+		</Style>
+		<Style TargetType="{x:Type DockPanel}">
+			<Setter Property="Margin" Value="5"/>
+		</Style>
+	</Window.Resources>
+	<StackPanel Orientation="Vertical">
+		<DockPanel LastChildFill="True">
+			<TextBlock Text="Название:" DockPanel.Dock="Left"/>
+			<TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+		</DockPanel>
+
+		<DockPanel LastChildFill="True">
+			<TextBlock Text="Примечание:" DockPanel.Dock="Left"/>
+			<TextBox Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"/>
+		</DockPanel>
+
+		<DockPanel LastChildFill="True">
+			<TextBlock Text="Цвет:" DockPanel.Dock="Left"/>
+			<Button Background="{Binding Color}" Content="Поменять" Command="{Binding ChangeColorCommand}"/>
+		</DockPanel>
+	</StackPanel>
+</Window>

@@ -1,0 +1,15 @@
+C:\Users\anufrievaa\Documents\dev\HomeInvestor\UnitTests\bin\Release\UnitTests.dll
+C:\Users\anufrievaa\Documents\dev\HomeInvestor\UnitTests\bin\Release\HomeInvestor.exe
+C:\Users\anufrievaa\Documents\dev\HomeInvestor\UnitTests\bin\Release\NUnit.Framework.dll
+C:\Users\anufrievaa\Documents\dev\HomeInvestor\UnitTests\bin\Release\ICSharpCode.AvalonEdit.dll
+C:\Users\anufrievaa\Documents\dev\HomeInvestor\UnitTests\bin\Release\LiveCharts.Wpf.dll
+C:\Users\anufrievaa\Documents\dev\HomeInvestor\UnitTests\bin\Release\LiveCharts.dll
+C:\Users\anufrievaa\Documents\dev\HomeInvestor\UnitTests\bin\Release\System.Data.SQLite.dll
+C:\Users\anufrievaa\Documents\dev\HomeInvestor\UnitTests\bin\Release\ICSharpCode.NRefactory.dll
+C:\Users\anufrievaa\Documents\dev\HomeInvestor\UnitTests\bin\Release\LiveCharts.Wpf.pdb
+C:\Users\anufrievaa\Documents\dev\HomeInvestor\UnitTests\bin\Release\LiveCharts.Wpf.xml
+C:\Users\anufrievaa\Documents\dev\HomeInvestor\UnitTests\bin\Release\LiveCharts.pdb
+C:\Users\anufrievaa\Documents\dev\HomeInvestor\UnitTests\bin\Release\LiveCharts.xml
+C:\Users\anufrievaa\Documents\dev\HomeInvestor\UnitTests\bin\Release\System.Data.SQLite.xml
+C:\Users\anufrievaa\Documents\dev\HomeInvestor\UnitTests\obj\Release\UnitTests.csprojResolveAssemblyReference.cache
+C:\Users\anufrievaa\Documents\dev\HomeInvestor\UnitTests\obj\Release\UnitTests.dll

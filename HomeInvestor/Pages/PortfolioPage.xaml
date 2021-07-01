@@ -1,0 +1,106 @@
+﻿<local:BasePage x:Class="HomeInvestor.Pages.PortfolioPage"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:HomeInvestor.Pages"
+	xmlns:conv="clr-namespace:HomeInvestor.Converters"
+	>
+<local:BasePage.Resources>
+  <Style x:Key="ForegroundStyle" TargetType="TextBlock">
+    <Setter Property="Background" 
+      Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}, 
+      	Path=Item.CheckHistory, 
+      	Converter={conv:CheckHistory}}"/>
+  </Style>
+</local:BasePage.Resources>
+	<DockPanel LastChildFill="True">
+		<DockPanel LastChildFill="True" DockPanel.Dock="Top" Margin="5" Background="{Binding Color}">
+			<Button Command="{Binding Main.NavHomeCommand}" Content="Домой" DockPanel.Dock="Left" Margin="5" Padding="3"/>
+			<Button Command="{Binding AddCommand}" Content="Новый актив" DockPanel.Dock="Left" Margin="5" Padding="3"/>
+			<Button Content="Удалить" Command="{Binding RemoveCommand}" DockPanel.Dock="Right" Margin="5" Padding="3"/>
+			<Button Content="Настройки" Command="{Binding SettingsCommand}" DockPanel.Dock="Right" Margin="5" Padding="3"/>
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+				<TextBlock Text="{Binding Name}" FontSize="24"/>
+				<TextBlock Text="("  FontSize="24" Margin="10,0,0,0"/>
+				<TextBlock Text="{Binding Description}" HorizontalAlignment="Stretch" TextAlignment="Center" FontSize="24"/>
+				<TextBlock Text=")"  FontSize="24"/>
+			</StackPanel>
+		</DockPanel>
+		<StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom">
+			<TextBlock Text="Общая стоимость:"/>
+			<TextBlock Text="{Binding TotalCost, Converter={conv:Decimal2Str}}" Margin="10,0,0,0" FontWeight="Bold"/>
+		</StackPanel>
+		<DataGrid ItemsSource="{Binding Positions}" AutoGenerateColumns="False" Name="grid">
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="Тип" 		Binding="{Binding TypeName}"	IsReadOnly="True"/>
+				<DataGridTextColumn Header="Название"	Binding="{Binding FullName}" 	IsReadOnly="True"/>
+				<DataGridTextColumn Header="Кол-во" 	Binding="{Binding Volume, Converter={conv:Decimal2Str}}"
+					IsReadOnly="False">
+				    <DataGridTextColumn.CellStyle>
+				        <Style TargetType="DataGridCell">
+				            <Setter Property="Foreground" Value="{Binding CheckHistoryBrush}" />
+				        </Style>
+				    </DataGridTextColumn.CellStyle>
+				</DataGridTextColumn>
+<!--				<DataGridTemplateColumn Header="Кол-во">
+					<DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding Volume, Converter={conv:Decimal2Str}}" 
+							           Foreground="{Binding Path=CheckHistory, Converter={conv:CheckHistory}}"/>
+						</DataTemplate>
+					</DataGridTemplateColumn.CellTemplate>
+
+					<DataGridTemplateColumn.CellEditingTemplate>
+						<DataTemplate>
+							<TextBox Text="{Binding Volume, Converter={conv:Decimal2Str}}"/>
+						</DataTemplate>
+					</DataGridTemplateColumn.CellEditingTemplate>
+				</DataGridTemplateColumn>-->
+				<DataGridTextColumn Header="Цена"		Binding="{Binding Price}"		IsReadOnly="True"/>
+				<DataGridTextColumn Header="Стоимость"	Binding="{Binding TotalCost, Converter={conv:Decimal2Str}}"	IsReadOnly="True"/>
+				<DataGridTextColumn Header="Цена покупки"	Binding="{Binding AvgPrice}"	IsReadOnly="False"/>
+				<DataGridTextColumn Header="Фин.рез."	Binding="{Binding FinRez, Converter={conv:Decimal2Str}}"	IsReadOnly="True"/>
+			    <DataGridTemplateColumn Width="200" Header="% в портфеле" SortMemberPath="Percent">
+					<DataGridTemplateColumn.CellTemplate>
+			    		<DataTemplate>
+			    			<Grid>
+				    			<Grid>
+				    				<Grid.ColumnDefinitions>
+				    					<ColumnDefinition Width="{Binding Percent, Converter={conv:PercentToGridWidth}, ConverterParameter=1}"/>
+				    					<ColumnDefinition Width="{Binding Percent, Converter={conv:PercentToGridWidth}, ConverterParameter=2}"/>
+				    				</Grid.ColumnDefinitions>
+									<Border Background="LightBlue" Grid.Column="0"/>
+				    			</Grid>
+								<TextBlock Text="{Binding Percent, StringFormat='\{0:F2\}'}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+							</Grid>
+						</DataTemplate>
+			    	</DataGridTemplateColumn.CellTemplate>
+				</DataGridTemplateColumn>
+
+				<DataGridTextColumn Header="Моя дох"	Binding="{Binding CurrentDohod, Converter={conv:Decimal2Str}}"	IsReadOnly="True"/>
+				<DataGridTextColumn Header="Дох.к погаш."	Binding="{Binding Dohod, Converter={conv:Decimal2Str}}"	IsReadOnly="True"/>
+
+			    <DataGridTemplateColumn Width="*">
+					<DataGridTemplateColumn.CellTemplate>
+			    		<DataTemplate>
+			    			<DockPanel LastChildFill="False">
+				    			<TextBlock HorizontalAlignment="Center" Margin="5,0" DockPanel.Dock="Right">
+                                    <Hyperlink Command="{Binding RemoveCommand}">
+                                        <TextBlock Text="Удалить..."/>
+                                    </Hyperlink>
+				    			</TextBlock>
+			    				<TextBlock HorizontalAlignment="Center" Margin="5,0" DockPanel.Dock="Left">
+                                    <Hyperlink Command="{Binding HistoryCommand}">
+                                        <TextBlock Text="История..."/>
+                                    </Hyperlink>
+				    			</TextBlock>
+							</DockPanel>
+						</DataTemplate>
+			    	</DataGridTemplateColumn.CellTemplate>
+				</DataGridTemplateColumn>
+
+
+<!--				<DataGridTextColumn Binding="{Binding Id}" IsReadOnly="True"/>-->
+			</DataGrid.Columns>
+		</DataGrid>
+	</DockPanel>
+</local:BasePage>

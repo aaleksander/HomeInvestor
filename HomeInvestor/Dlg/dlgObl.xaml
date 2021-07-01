@@ -1,0 +1,172 @@
+﻿<Window x:Class="HomeInvestor.Dlg.dlgObl"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vm="clr-namespace:HomeInvestor.ViewModels"
+    xmlns:conv="clr-namespace:HomeInvestor.Converters"
+    xmlns:comp="clr-namespace:HomeInvestor.Components"
+	Title="Облигации" Height="768" Width="1224"
+	SnapsToDevicePixels="True"
+	RenderOptions.EdgeMode="Aliased"
+	WindowStartupLocation="CenterScreen"
+	TextOptions.TextFormattingMode="Display"
+	FontSize="16">
+<Window.Resources>	
+    <vm:BondViewModel x:Key="obl"/>
+	<Style TargetType="Button">
+		<Setter Property="Padding" Value="3"/>
+		<Setter Property="Margin" Value="3"/>
+	</Style>
+	<conv:Str2DT x:Key="str2dt"/>
+	<conv:OblCupConverter x:Key="oblCupConv"/>
+	<conv:OblAmortConverter x:Key="oblAmortConv"/>
+</Window.Resources>
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="1.5*" MinWidth="150"/>
+			<ColumnDefinition Width="Auto"/>
+			<ColumnDefinition Width="1*"/>
+		</Grid.ColumnDefinitions>
+
+		<GroupBox Header="Облигации" Grid.Column="0">
+			<DockPanel LastChildFill="True">
+				<StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="3">
+					<Button Content="Добавить" Command="{Binding AddOblToDictCommand}"/>
+					<Button Content="Посчитать доходность" Command="{Binding RecalcDohodCommand}"/>
+					<Button Content="Удалить" ToolTip="Удалить облигацию из справочника" Command="{Binding RemoveOblCommand}"
+						CommandParameter="{Binding ElementName=grid, Path=SelectedItem}"/>
+				</StackPanel>
+				<DataGrid ItemsSource="{Binding Obls}" AutoGenerateColumns="False" Name="grid" CanUserAddRows="False" CanUserDeleteRows="False"> <!--CanUserAddRows="False" CanUserDeleteRows="False">-->
+					<DataGrid.Columns>
+						<DataGridTextColumn Header="№п/п" Width="50" Binding="{Binding PP}" IsReadOnly="True"/>
+						<DataGridTextColumn Header="Название" Width="*" Binding="{Binding FullName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+						<DataGridTextColumn Header="Короткое имя" Width="100" Binding="{Binding ShortName}"/>
+<!--						<DataGridComboBoxColumn Header="Тип" Width="100" 
+							ItemsSource="{Binding OblTypes2}"
+							DisplayMemberPath="Name"
+							SelectedValuePath="Id"
+							SelectedValueBinding="{Binding TypeId}"/>
+-->
+						<comp:MyDGComboBox Header="Тип" Width="100" 
+							Items="Windows:OblTypes"
+							DisplayMemberPath="Name"
+							SelectedValuePath="Id"
+							SelectedValueBinding="{Binding TypeId}"/>
+						<DataGridTextColumn Header="Цена, %" Binding="{Binding Price}"/>
+						<DataGridTextColumn Header="Доходность, %" Binding="{Binding Dohod, StringFormat='\{0:F2\}'}"/>
+					</DataGrid.Columns>
+				</DataGrid>
+			</DockPanel>
+		</GroupBox>
+
+		<GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Center"/>
+		<TextBlock Text="  Выберите облигацию слева" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
+		<GroupBox Header="Данные" Grid.Column="2">
+			<GroupBox.Style>
+				<Style TargetType="GroupBox">
+	                <Setter Property="Visibility" Value="Visible"/>
+	                <Style.Triggers>
+	                    <DataTrigger Binding="{Binding ElementName=grid, Path=SelectedItem}" Value="{x:Null}">
+	                        <Setter Property="Visibility" Value="Collapsed"/>
+	                    </DataTrigger>
+	                </Style.Triggers>
+				</Style>
+			</GroupBox.Style>
+			<DockPanel LastChildFill="True">
+				<StackPanel Orientation="Vertical" Margin="5" DockPanel.Dock="Top">
+					<TextBlock Text="{Binding ElementName=grid, Path=SelectedItem.FullName}" FontSize="20" HorizontalAlignment="Left"/>
+					<Separator/>
+					<DockPanel LastChildFill="False" Margin="3">
+						<TextBlock Text="ISIN:" TextAlignment="Right" Width="150" DockPanel.Dock="Left" Margin="5,0"/>
+						<TextBox Text="{Binding ElementName=grid, Path=SelectedItem.ISIN, Mode=TwoWay}" Width="200" DockPanel.Dock="Left"/>
+					</DockPanel>
+					<DockPanel LastChildFill="False" Margin="3">
+						<TextBlock Text="Дата погашения:" TextAlignment="Right" Width="150" DockPanel.Dock="Left" Margin="5,0"/>
+						<DatePicker Width="200" DockPanel.Dock="Left" SelectedDate="{Binding ElementName=grid, Path=SelectedItem.PogashDT}"/>
+					</DockPanel>
+					<DockPanel LastChildFill="False" Margin="3">
+						<TextBlock Text="Номинал:" TextAlignment="Right" Width="150" DockPanel.Dock="Left" Margin="5,0"/>
+						<TextBox Width="200" DockPanel.Dock="Left" Text="{Binding ElementName=grid, Path=SelectedItem.Nominal}"/>
+					</DockPanel>
+<!--					<DockPanel LastChildFill="False" Margin="3">
+						<TextBlock Text="Облигация на замену:" TextAlignment="Right" Width="150" DockPanel.Dock="Left" Margin="5,0"/>
+						<ComboBox Width="200" ToolTip="На что поменять облигацию в портфеле после погашения во время прогноза"
+								  ItemsSource="{Binding Obls}" DisplayMemberPath="FullName" SelectedValuePath="Id" 
+						          SelectedValue="{Binding ElementName=grid, Path=SelectedItem.NextOblId, Delay=10}"
+						/>
+					</DockPanel>-->
+				</StackPanel>
+
+				<TabControl>
+					<TabItem Header="Купоны">
+						<DockPanel LastChildFill="True">
+							<StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+								<Button Content="Добавить" Command="{Binding AddCuponCommand}" CommandParameter="{Binding ElementName=grid, Path=SelectedItem}"/>
+								<Button Content="Удалить" Command="{Binding RemoveCuponCommand}">
+									<Button.CommandParameter>
+										<MultiBinding Converter="{StaticResource oblCupConv}">
+											<Binding ElementName="cupons" Path="SelectedItem"/>
+											<Binding ElementName="grid" Path="SelectedItem"/>
+										</MultiBinding>
+									</Button.CommandParameter>
+								</Button>
+							</StackPanel>
+							<DataGrid ItemsSource="{Binding ElementName=grid, Path=SelectedItem.Cupons}" AutoGenerateColumns="False" 
+							          CanUserDeleteRows="False" Name="cupons">
+								<DataGrid.RowStyle>
+									<Style TargetType="DataGridRow">
+							            <Style.Triggers>
+							                <DataTrigger Binding="{Binding First}" Value="True">
+							                    <Setter Property="Background" Value="Gold"></Setter>
+							                </DataTrigger>
+							            </Style.Triggers>
+									</Style>
+								</DataGrid.RowStyle>
+								<DataGrid.Columns>
+									<DataGridTextColumn Header="№ п/п" Binding="{Binding PP}" Width="50"/>
+									<DataGridTextColumn Header="Дата" Binding="{Binding DT, Converter={StaticResource str2dt}}" Width="100"/>
+									<DataGridTextColumn Header="Купон" Binding="{Binding Size}" Width="100"/>
+								</DataGrid.Columns>
+							</DataGrid>
+						</DockPanel>
+					</TabItem>
+					<TabItem Header="Амортизация">
+						<DockPanel LastChildFill="True">
+							<StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+								<Button Content="Добавить" Command="{Binding AddAmortCommand}" CommandParameter="{Binding ElementName=grid, Path=SelectedItem}"/>
+								<Button Content="Удалить" Command="{Binding RemoveAmortCommand}">
+									<Button.CommandParameter>
+										<MultiBinding Converter="{StaticResource oblAmortConv}">
+											<Binding ElementName="amorts" Path="SelectedItem"/>
+											<Binding ElementName="grid" Path="SelectedItem"/>
+										</MultiBinding>
+									</Button.CommandParameter>
+								</Button>
+							</StackPanel>
+							<DataGrid ItemsSource="{Binding ElementName=grid, Path=SelectedItem.Amorts}" AutoGenerateColumns="False" 
+							          CanUserDeleteRows="False" Name="amorts">
+								<DataGrid.RowStyle>
+									<Style TargetType="DataGridRow">
+							            <Style.Triggers>
+							                <DataTrigger Binding="{Binding First}" Value="True">
+							                    <Setter Property="Background" Value="Gold"></Setter>
+							                </DataTrigger>
+							            </Style.Triggers>
+									</Style>
+								</DataGrid.RowStyle>
+								<DataGrid.Columns>
+									<DataGridTextColumn Header="№ п/п" Binding="{Binding PP}" Width="50"/>
+									<DataGridTextColumn Header="Дата" Binding="{Binding DT, Converter={StaticResource str2dt}}" Width="100"/>
+									<DataGridTextColumn Header="Амортизация, руб" Binding="{Binding Size}" Width="100"/>
+								</DataGrid.Columns>
+							</DataGrid>
+						</DockPanel>
+					</TabItem>
+					<TabItem Header="Расчет доходности">
+						<TextBox IsReadOnly="True" Text="{Binding ElementName=grid, Path=SelectedItem.Raschet}" AcceptsReturn="True" 
+						         VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"/>
+					</TabItem>
+				</TabControl>
+			</DockPanel>
+		</GroupBox>
+	</Grid>
+</Window>

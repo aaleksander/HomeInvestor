@@ -1,0 +1,26 @@
+﻿<Window x:Class="HomeInvestor.Dlg.dlgHistory"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:conv="clr-namespace:HomeInvestor.Converters"
+	Title="{Binding Title}" Height="600" Width="800"
+	WindowStartupLocation="CenterScreen"
+	FontSize="16"
+>
+	<Window.Resources>
+		<conv:Str2DT x:Key="str2dt"/>
+	</Window.Resources>
+	
+	<DockPanel LastChildFill="True">
+		<ToolBar DockPanel.Dock="Top">
+			<Button Content="Добавить" Command="{Binding AddHistoryCommand}"/>
+		</ToolBar>
+		<DataGrid ItemsSource="{Binding History}" AutoGenerateColumns="False">
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="Дата" Binding="{Binding DT, Converter={StaticResource str2dt}}" Width="150"/>
+				<DataGridTextColumn Header="Операция buy/sell" Binding="{Binding Operation}" Width="100"/>
+				<DataGridTextColumn Header="Количество" Binding="{Binding Volume}" Width="100"/>
+				<DataGridTextColumn Header="Цена" Binding="{Binding Price}" Width="100"/>
+			</DataGrid.Columns>
+		</DataGrid>
+	</DockPanel>
+</Window>
